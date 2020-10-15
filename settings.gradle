@@ -1,0 +1,11 @@
+rootProject.name = 'mall-swarm'
+include 'mall-admin'
+include 'mall-auth'
+include 'mall-common'
+include 'mall-demo'
+include 'mall-gateway'
+include 'mall-mbg'
+include 'mall-monitor'
+include 'mall-portal'
+include 'mall-search'
+

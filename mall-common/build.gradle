@@ -1,0 +1,9 @@
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-data-redis"
+    implementation "com.github.pagehelper:pagehelper:${pagehelper_version}"
+    implementation "org.springframework.data:spring-data-commons"
+    implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter"
+    implementation "net.logstash.logback:logstash-logback-encoder"
+}

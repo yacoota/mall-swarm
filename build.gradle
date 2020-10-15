@@ -1,0 +1,135 @@
+group 'com.macro.mall'
+version '1.0-SNAPSHOT'
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    sourceCompatibility = targetJavaVersion
+    targetCompatibility = targetJavaVersion
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    configurations {
+        all*.exclude group: 'commons-logging'
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    ext {
+        docker_host = "http://192.168.3.101:2375"
+        docker_maven_plugin_version = "1.2.2"
+        spring_cloud_version = "Hoxton.SR5"
+        spring_cloud_alibaba_version = "2.2.0.RELEASE"
+        pagehelper_starter_version = "1.3.0"
+        pagehelper_version = "5.2.0"
+        druid_version = "1.2.1"
+        hutool_version = "5.4.0"
+        swagger2_version = "2.9.2"
+        swagger_models_version = "1.6.0"
+        swagger_annotations_version = "1.6.0"
+        mybatis_generator_version = "1.4.0"
+        mybatis_version = "3.5.5"
+        mysql_connector_version = "8.0.20"
+        spring_data_commons_version = "2.3.0.RELEASE"
+        jjwt_version = "0.9.0"
+        aliyun_oss_version = "2.5.0"
+        logstash_logback_version = "5.3"
+        minio_version = "7.1.0"
+        admin_starter_server_version = "2.2.3"
+        knife4j_version = "2.0.4"
+        nimbus_jose_jwt_version = "8.16"
+        mall_common_version = "1.0-SNAPSHOT"
+        mall_mbg_version = "1.0-SNAPSHOT"
+        mall_security_version = "1.0-SNAPSHOT"
+    }
+
+    dependencies {
+        implementation platform('org.springframework.boot:spring-boot-dependencies:2.3.1.RELEASE')
+        implementation platform('org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR5')
+        implementation platform('com.alibaba.cloud:spring-cloud-alibaba-dependencies:2.2.0.RELEASE')
+
+        implementation "org.springframework.boot:spring-boot-starter-actuator"
+        implementation "org.springframework.boot:spring-boot-starter-aop"
+        implementation "org.springframework.boot:spring-boot-configuration-processor"
+
+        implementation "cn.hutool:hutool-all:${hutool_version}"
+        implementation "org.mybatis.generator:mybatis-generator-core:${mybatis_generator_version}"
+        implementation "org.mybatis:mybatis:${mybatis_version}"
+        implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4j_version}"
+        implementation "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4j_version}"
+        implementation "io.springfox:springfox-swagger2:${swagger2_version}"
+        implementation "io.springfox:springfox-swagger-ui:${swagger2_version}"
+        implementation "io.swagger:swagger-models:${swagger_models_version}"
+        implementation "io.swagger:swagger-annotations:${swagger_annotations_version}"
+        implementation "io.jsonwebtoken:jjwt:${jjwt_version}"
+        implementation "com.nimbusds:nimbus-jose-jwt:${nimbus_jose_jwt_version}"
+        implementation "com.aliyun.oss:aliyun-sdk-oss:${aliyun_oss_version}"
+        implementation "net.logstash.logback:logstash-logback-encoder:${logstash_logback_version}"
+        implementation("de.codecentric:spring-boot-admin-starter-server:${admin_starter_server_version}") {
+            exclude group: "org.springframework.boot", module: "spring-boot-starter-web"
+            exclude group: "org.springframework.boot", module: "spring-boot-starter-webflux"
+        }
+
+        implementation "io.minio:minio:${minio_version}"
+
+        compileOnly "org.projectlombok:lombok:1.18.12"
+        annotationProcessor "org.projectlombok:lombok:1.18.12"
+
+        testCompile "org.springframework.boot:spring-boot-starter-test"
+
+
+        implementation("io.micrometer:micrometer-core:1.5.5")
+        implementation("org.aspectj:aspectjweaver:1.9.6")
+        implementation("org.glassfish:jakarta.el:3.0.3")
+        implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
+        implementation("org.thymeleaf:thymeleaf-spring5:3.0.11.RELEASE")
+        implementation("org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE")
+        implementation("javax.servlet:javax.servlet-api:4.0.0")
+        implementation("org.apache.commons:commons-collections4:4.4")
+        implementation("commons-collections:commons-collections:20040616")
+        implementation("com.jayway.jsonpath:json-path:2.4.0")
+        implementation("jakarta.xml.bind:jakarta.xml.bind-api:2.3.3")
+        implementation("org.assertj:assertj-core:3.17.2")
+        implementation("org.junit.jupiter:junit-jupiter:5.7.0")
+        implementation("org.junit.vintage:junit-vintage-engine:5.7.0")
+        implementation("org.mockito:mockito-core:3.5.13")
+        implementation("org.mockito:mockito-junit-jupiter:3.5.13")
+        implementation("org.skyscreamer:jsonassert:1.5.0")
+        implementation("org.xmlunit:xmlunit-core:2.7.0")
+
+        testCompile("junit:junit:4.13")
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+            resources {
+                srcDir 'src/main/resources'
+            }
+        }
+    }
+
+    jar {
+        manifest {
+            attributes("provider": "Gradle")
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    }
+    defaultTasks 'clean', 'build', 'assemble'
+}
