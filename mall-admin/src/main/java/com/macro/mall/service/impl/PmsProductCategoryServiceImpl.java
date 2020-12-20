@@ -10,8 +10,7 @@ import com.macro.mall.mapper.PmsProductCategoryMapper;
 import com.macro.mall.mapper.PmsProductMapper;
 import com.macro.mall.model.*;
 import com.macro.mall.service.PmsProductCategoryService;
-// import org.apache.commons.collections.CollectionUtils;
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,7 @@ public class PmsProductCategoryServiceImpl implements PmsProductCategoryService 
         int count = productCategoryMapper.insertSelective(productCategory);
         //创建筛选属性关联
         List<Long> productAttributeIdList = pmsProductCategoryParam.getProductAttributeIdList();
-        if(!CollectionUtils.isEmpty(productAttributeIdList)){
+        if(!(CollectionUtils.size(productAttributeIdList)==0)){
             insertRelationList(productCategory.getId(), productAttributeIdList);
         }
         return count;
@@ -80,7 +79,7 @@ public class PmsProductCategoryServiceImpl implements PmsProductCategoryService 
         example.createCriteria().andProductCategoryIdEqualTo(id);
         productMapper.updateByExampleSelective(product,example);
         //同时更新筛选属性的信息
-        if(!CollectionUtils.isEmpty(pmsProductCategoryParam.getProductAttributeIdList())){
+        if(!(CollectionUtils.size(pmsProductCategoryParam.getProductAttributeIdList())==0)){
             PmsProductCategoryAttributeRelationExample relationExample = new PmsProductCategoryAttributeRelationExample();
             relationExample.createCriteria().andProductCategoryIdEqualTo(id);
             productCategoryAttributeRelationMapper.deleteByExample(relationExample);

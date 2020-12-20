@@ -2,7 +2,7 @@ dependencies {
     compile project(':mall-common')
 
     implementation "org.mybatis.generator:mybatis-generator-core"
-    implementation "com.alibaba:druid-spring-boot-starter"
-    implementation "com.github.pagehelper:pagehelper-spring-boot-starter"
+    implementation "com.alibaba:druid-spring-boot-starter:${druid_version}"
+    implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelper_starter_version}"
     implementation "mysql:mysql-connector-java"
 }

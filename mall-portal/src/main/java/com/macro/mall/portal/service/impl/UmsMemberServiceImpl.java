@@ -19,6 +19,7 @@ import com.macro.mall.model.UmsMemberLevelExample;
 import com.macro.mall.portal.service.AuthService;
 import com.macro.mall.portal.service.UmsMemberCacheService;
 import com.macro.mall.portal.service.UmsMemberService;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
